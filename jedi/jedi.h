@@ -70,12 +70,12 @@ typedef struct Entry {
 /*
  * global variables
  */
-int ni;				/* number of inputs */
-int no;				/* number of outputs */
-int np;				/* number of symbolic product terms */
-int ne;				/* number of enumtype types */
-int tni;			/* total number of binary inputs */
-int tno;			/* total number of binary outputs */
-struct Enumtype *enumtypes;	/* array of enumtypes */
-struct Variable *inputs;	/* array of inputs */
-struct Variable *outputs;	/* array of outputs */
+extern int ni;				/* number of inputs */
+extern int no;				/* number of outputs */
+extern int np;				/* number of symbolic product terms */
+extern int ne;				/* number of enumtype types */
+extern int tni;			/* total number of binary inputs */
+extern int tno;			/* total number of binary outputs */
+extern struct Enumtype *enumtypes;	/* array of enumtypes */
+extern struct Variable *inputs;	/* array of inputs */
+extern struct Variable *outputs;	/* array of outputs */

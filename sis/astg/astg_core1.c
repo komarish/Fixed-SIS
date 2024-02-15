@@ -7,7 +7,7 @@
 #include "astg_int.h"
 #include "astg_core.h"
 
-int astg_debug_flag;
+extern int astg_debug_flag;
 
 
 /* ------------------------------ Bit arrays -------------------------------- */

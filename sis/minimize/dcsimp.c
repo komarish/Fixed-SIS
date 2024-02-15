@@ -13,7 +13,7 @@ extern void init_ROS();
 extern void close_ROS();
 extern pcover get_ROS();
 
-pcover ROS;
+extern pcover ROS;
 
 int	 DC_DEBUG= 1; /* if set to 1, verifies the final cover for correctness*/
 

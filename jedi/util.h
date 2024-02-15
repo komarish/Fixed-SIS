@@ -26,8 +26,8 @@ typedef int Boolean;
 /*
  * token holders for parse_line
  */
-char *targv[5000];			/* pointer to tokens */
-int targc;				/* number of tokens */
+extern char *targv[5000];			/* pointer to tokens */
+extern int targc;				/* number of tokens */
 
 /*
  * forward declarations

@@ -1,6 +1,8 @@
 
 #ifdef SIS
 #include "timing_int.h"
+
+debug_type_t debug_type;
     
 /* function definition 
     name:     tmg_node_get_delay()

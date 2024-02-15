@@ -233,7 +233,7 @@ typedef struct set_family {
 #endif
 
 /* Table for efficient bit counting */
-int bit_count[256];
+extern int bit_count[256];
 /*----- END OF set.h ----- */
 
 /* Define a boolean type */
@@ -412,29 +412,29 @@ typedef struct {
  *    Global Variable Declarations
  */
 
-unsigned int debug;              /* debug parameter */
-bool verbose_debug;              /* -v:  whether to print a lot */
-char         *total_name[TIME_COUNT];    /* basic function names */
-long         total_time[TIME_COUNT];     /* time spent in basic fcts */
-int          total_calls[TIME_COUNT];     /* # calls to each fct */
+extern unsigned int debug;              /* debug parameter */
+extern bool verbose_debug;              /* -v:  whether to print a lot */
+extern char         *total_name[TIME_COUNT];    /* basic function names */
+extern long         total_time[TIME_COUNT];     /* time spent in basic fcts */
+extern int          total_calls[TIME_COUNT];     /* # calls to each fct */
 
-bool echo_comments;        /* turned off by -eat option */
-bool echo_unknown_commands;    /* always true ?? */
-bool force_irredundant;          /* -nirr command line option */
-bool skip_make_sparse;
-bool kiss;                       /* -kiss command line option */
-bool pos;                        /* -pos command line option */
-bool print_solution;             /* -x command line option */
-bool recompute_onset;            /* -onset command line option */
-bool remove_essential;           /* -ness command line option */
-bool single_expand;              /* -fast command line option */
-bool summary;                    /* -s command line option */
-bool trace;                      /* -t command line option */
-bool unwrap_onset;               /* -nunwrap command line option */
-bool use_random_order;        /* -random command line option */
-bool use_super_gasp;        /* -strong command line option */
-char         *filename;            /* filename PLA was read from */
-bool debug_exact_minimization;   /* dumps info for -do exact */
+extern bool echo_comments;        /* turned off by -eat option */
+extern bool echo_unknown_commands;    /* always true ?? */
+extern bool force_irredundant;          /* -nirr command line option */
+extern bool skip_make_sparse;
+extern bool kiss;                       /* -kiss command line option */
+extern bool pos;                        /* -pos command line option */
+extern bool print_solution;             /* -x command line option */
+extern bool recompute_onset;            /* -onset command line option */
+extern bool remove_essential;           /* -ness command line option */
+extern bool single_expand;              /* -fast command line option */
+extern bool summary;                    /* -s command line option */
+extern bool trace;                      /* -t command line option */
+extern bool unwrap_onset;               /* -nunwrap command line option */
+extern bool use_random_order;        /* -random command line option */
+extern bool use_super_gasp;        /* -strong command line option */
+extern char         *filename;            /* filename PLA was read from */
+extern bool debug_exact_minimization;   /* dumps info for -do exact */
 
 
 /*
@@ -487,9 +487,11 @@ struct cdata_struct {
 };
 
 
-struct pla_types_struct pla_types[];
-struct cube_struct      cube, temp_cube_save;
-struct cdata_struct     cdata, temp_cdata_save;
+extern struct pla_types_struct pla_types[];
+extern struct cube_struct      cube;
+extern struct cube_struct      temp_cube_save;
+extern struct cdata_struct     cdata;
+extern struct cdata_struct     temp_cdata_save;
 
 #ifdef lint
 #define DISJOINT 0x5555

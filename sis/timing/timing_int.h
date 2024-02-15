@@ -208,7 +208,7 @@ struct clock_event_struct {
 #define SHIFT(e) (e->shift)
 
 /* GLOBAL vars */
-debug_type_t debug_type;
+extern debug_type_t debug_type;
 
 
 /* Routine defs */

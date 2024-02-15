@@ -3,9 +3,9 @@
 #include "util.h"
 #include "espresso.h"
 
-#ifdef define_extern
-#define extern
-#endif
+//#ifdef define_extern
+//#define extern
+//#endif
 
 /* void * malloc (), * realloc (); */
 #define CHUNK 10

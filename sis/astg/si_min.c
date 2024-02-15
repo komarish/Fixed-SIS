@@ -5,6 +5,11 @@
 #include "astg_core.h"
 #include "si_int.h"
 
+
+int g_debug;
+int add_red;
+int do_reduce;
+
 static void astg_do_min();
 static st_table *link_state_minterm();
 static pcube find_minterm();

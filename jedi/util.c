@@ -11,6 +11,10 @@
 
 #include "jedi.h"
 
+
+char *targv[5000];			/* pointer to tokens */
+int targc;
+
 int distance();			/* forward declaration */
 char *int_to_binary();		/* forward declaration */
 int binary_to_int();		/* forward declaration */

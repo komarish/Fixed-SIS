@@ -32,28 +32,28 @@
 /*
  * flags
  */
-Boolean addDontCareFlag;	/* fully specify the machine */
-Boolean bitsFlag;		/* specify a kiss-style input */
-Boolean kissFlag;		/* specify a kiss-style input */
-Boolean verboseFlag;		/* display verbose information */
-Boolean sequentialFlag;		/* run sequential encoding */
-Boolean clusterFlag;		/* run cluster encoding */
-Boolean srandomFlag;		/* run static random */
-Boolean drandomFlag;		/* run dynamic random */
-Boolean variationFlag;		/* variation of weight calculation */
-Boolean oneplaneFlag;		/* compute weights only on one plane */
-Boolean hotFlag;		/* one hot encoding */
-Boolean expandFlag;		/* code expansion flag */
-Boolean plaFlag;		/* output PLA format */
+extern Boolean addDontCareFlag;	/* fully specify the machine */
+extern Boolean bitsFlag;		/* specify a kiss-style input */
+extern Boolean kissFlag;		/* specify a kiss-style input */
+extern Boolean verboseFlag;		/* display verbose information */
+extern Boolean sequentialFlag;		/* run sequential encoding */
+extern Boolean clusterFlag;		/* run cluster encoding */
+extern Boolean srandomFlag;		/* run static random */
+extern Boolean drandomFlag;		/* run dynamic random */
+extern Boolean variationFlag;		/* variation of weight calculation */
+extern Boolean oneplaneFlag;		/* compute weights only on one plane */
+extern Boolean hotFlag;		/* one hot encoding */
+extern Boolean expandFlag;		/* code expansion flag */
+extern Boolean plaFlag;		/* output PLA format */
 
 /*
  * parameters
  */
-double beginningStates;		/* number of beginning states for SA */
-double endingStates;		/* number of ending states for SA */
-double startingTemperature;	/* starting temperature for SA */
-double maximumTemperature;	/* maximum temperature for SA */
-int weightType;			/* options for weighting type */
+extern double beginningStates;		/* number of beginning states for SA */
+extern double endingStates;		/* number of ending states for SA */
+extern double startingTemperature;	/* starting temperature for SA */
+extern double maximumTemperature;	/* maximum temperature for SA */
+extern int weightType;			/* options for weighting type */
 
-char *reset_state;		/* reset state for state assignment */
-int code_length;		/* code length for state assignemnt */
+extern char *reset_state;		/* reset state for state assignment */
+extern int code_length;		/* code length for state assignemnt */

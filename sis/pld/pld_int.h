@@ -203,9 +203,9 @@ typedef struct vertex_node_defn{
 
 /*	global	*/
 
-	array_t *index_list_array;
-	array_t *index_list_array2;
-	array_t *global_lists;
+	extern array_t *index_list_array;
+	extern array_t *index_list_array2;
+	extern array_t *global_lists;
         
 	extern void p_actAlloc();			/* act_init.c	*/
 	extern void p_actFree();			/* act_init.c	*/

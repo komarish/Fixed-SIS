@@ -22,12 +22,49 @@
  */
 
 #include "espresso.h"
-#define extern
 #include "ros.h"
-#undef extern
 
 static bool is_taut;
 static bool d1_active;
+
+/* Global variables used by routines in ros */
+pcube *nc_tmp_cube;	/* Temporary cubes to be used in this file */
+
+pcover Tree_cover;	/* F union D used to generate the unate tree */
+
+int Max_level;		/* Controls the depth of the part of unate 
+			           tree that is stored */
+int N_level;            /* Some processing to reduce the size of
+				  cofactors is done every N_level levels */
+pnc_node root;		/* Root node of the unate tree */
+
+int Num_act_vars;       /* Number of active variables in the cube being 
+			          expanded */
+
+pcover ROS;		/* Reduced off set */
+
+int ROS_count;		/* Number of ROS generated */
+
+long ROS_time;		/* Total time for generating ROSs */
+
+pcube ROS_cube;		/* Cube for which ROS was computed */
+
+int Max_ROS_size;	/* Maximum size of off set during the entire
+				   run */
+int ROS_zeros;		/* Upper bound on the number of zeros in
+				   ROS cube */
+int ROS_max_store;	/* Number of ROS stored at any time */
+
+int ROS_max_size_store;	/* Upped limit on the size of ROS that can
+                                   be stored for future use */
+int N_ROS;		/* Keeps track of number of ROS stored so far */
+
+pros_holder ROS_array;	/* ROS_array that stores ROS */ 
+
+int OC_count;		/* Number of overexpanded cubes generated */
+
+long OC_time;		/* Total time for generating overexpanded
+				   cubes */
 
 /*
  * Get the blocking matrix (Reduced Off Set) for p.

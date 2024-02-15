@@ -53,9 +53,9 @@ typedef struct bwd_struct bwd_t;
 #define BWD_GET(stg) ((bwd_t*)astg_get_slot((stg),ASTG_BWD_SLOT))
 #define BWD_SET(stg,value) (astg_set_slot((stg),ASTG_BWD_SLOT,(value)))
 
-astg_scode dummy_mask;
+static astg_scode dummy_mask;
 
-int enc_summary;
+static int enc_summary;
 
 /* defined in bwd_util.c */
 extern graph_t *global_orig_stg;

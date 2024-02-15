@@ -1,7 +1,7 @@
 /* global variables */
-int g_debug;
-int add_red;
-int do_reduce;
+extern int g_debug;
+extern int add_red;
+extern int do_reduce;
 
 /* si_com_astg.c */
 extern int com_astg_minimize();

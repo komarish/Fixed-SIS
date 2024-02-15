@@ -7,6 +7,10 @@
 
 extern int p_compare2key();
 
+array_t *index_list_array;
+array_t *index_list_array2;
+array_t *global_lists;
+        
 ACT_VERTEX_PTR
 actReduce(fn_graph)
 ACT_VERTEX_PTR fn_graph;

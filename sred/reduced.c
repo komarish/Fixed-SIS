@@ -137,3 +137,50 @@ reduced()
  set_free(scanned); 
 
 }
+
+
+int isymb, osymb;
+int newnp, np, nis, ns, nos,ni,no;
+int type;
+int errorcount;
+extern int yylineno; int mylinepos;
+int unspec;
+
+char identification[MAXNAME], startstate[MAXNAME];
+char myline[MAXNAME];
+char state[MAXNAME], in[MAXNAME], next[MAXNAME], out[MAXNAME];
+
+char **slab;
+int slab_size;
+
+char lastnum[MAXNAME], lastid[MAXNAME], lastvect[MAXNAME];
+char laststate[MAXNAME], lastin[MAXNAME], lastnext[MAXNAME];
+char lastout[MAXNAME];
+
+SYMTABLE *inputlist, *statelist, *outputlist;
+
+NAMETABLE *nametable;
+
+INPUTTABLE *itable;
+int itable_size;
+
+FILE *filin, *filout;
+
+
+pset_family incograph;
+SUBCOMP incocomp;
+int *color;
+int colornum;
+pset_family maxcompatibles;
+
+pset_family primes;
+int reset;
+
+CHAINS firstchain;
+
+pset_family copertura1, copertura2;
+MINITABLE *mintable;
+int mintable_size;
+
+int do_print_classes;
+char *coloring_algo;
