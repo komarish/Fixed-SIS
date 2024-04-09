@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "Makefile build",
+          "type": "shell",
+          "command": "",
+          "args": [
+              "make",
+              "-C", "${workspaceFolder}"
+          ],
+          "group":  {
+              "kind": "build",
+              "isDefault": true
+          },
+          "presentation": {
+              "reveal":"always"
+          }
+      },
+      {
+          "label": "Makefile clean",
+          "type": "shell",
+          "command": "",
+          "args": [
+              "make",
+              "-C", "${workspaceFolder}",
+              "clean"
+          ],
+          "group":  {
+              "kind": "build",
+              "isDefault": true
+          },
+          "presentation": {
+              "reveal":"always"
+          }
+      },
+      {
+        "label": "Run blif.exe in terminal",
+        "type": "shell",
+        "command": "",
+        "args": [
+            "${workspaceFolder}/blif.exe"
+        ],
+        "group":  {
+            "kind": "build",
+            "isDefault": true
+        },
+        "presentation": {
+            "reveal":"always"
+        }
+      }
+  ]
+}
