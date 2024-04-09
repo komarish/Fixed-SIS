@@ -6,6 +6,6 @@
 /*
  *  called just before the program terminates
  */
-end_test()
+int __attribute__((weak)) end_test()
 {
 }
