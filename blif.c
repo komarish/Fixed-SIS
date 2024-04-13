@@ -9,6 +9,9 @@
 #include <sis/network.h>
 #include <sis/io.h>
 
+#include <sis/command.h>
+
+
 extern array_t* simulate_network();
 
 #define array_data_(x, y) (array_data(x, y))
@@ -18,6 +21,7 @@ int mytest(network_t** network, int argc, const char* argv[]) {
         puts("too few arguments :(");
         return -1;
     }
+    
     puts(argv[1]);
 
     FILE* blif = fopen(argv[1], "r");
@@ -46,6 +50,7 @@ int mytest(network_t** network, int argc, const char* argv[]) {
         goto bail;
     }
 
+
     for (int i = 0; i < num_values; ++i) {
         if (!argv[2][i]) {
             puts("too few input values :(");
@@ -61,6 +66,7 @@ int mytest(network_t** network, int argc, const char* argv[]) {
     }
 
     for (int i = 0; i < outs->num; ++i)
+        //printf("out[%d] = %d\n", i, array_fetch(int, outs, i));
         printf("out[%d] = %d\n", i, array_fetch(int, outs, i));
 
 bail:
@@ -71,11 +77,13 @@ bail:
     return err;
 }
 
-init_test()
+int init_test()
 {
     com_add_command("my_read_blif", mytest, 1);
+    return 0;
 }
 
-end_test()
+int end_test()
 {
+    return 0;
 }
