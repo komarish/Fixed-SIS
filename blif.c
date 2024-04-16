@@ -161,7 +161,8 @@ int test_from_file(network_t** network, int argc, const char* argv[])
 
 
 
-    while((fgets(line, sizeof(line), inputs_file)) != NULL)
+    while((fgets(line, sizeof(line), inputs_file)) != NULL 
+        || (strstr(line, ".e") != line))
     {
         printf("%s", line);
 
@@ -250,7 +251,7 @@ int test_from_file(network_t** network, int argc, const char* argv[])
     }
 
 
-
+    fputs(".e", outputs_file);
     fclose(outputs_file);
 
 
