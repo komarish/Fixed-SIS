@@ -17,7 +17,8 @@ extern array_t* simulate_network();
 #define array_data_(x, y) (array_data(x, y))
 
 
-int my_simulate(network_t** network, const char *blif_fname, const char *bool_str)
+int my_simulate(network_t** network, const char *blif_fname, 
+                    const char *bool_str, char *outputs_line)
 {
     FILE* blif = fopen(blif_fname, "r");
     if (!blif) {
@@ -46,6 +47,12 @@ int my_simulate(network_t** network, const char *blif_fname, const char *bool_st
     }
 
 
+
+    //int num_po = network_num_po(*network);
+    //printf("Number of outputs in scheme %d\n", num_po);
+
+
+
     for (int i = 0; i < num_values; ++i) {
         if (!bool_str[i]) {
             puts("too few input values :(");
@@ -61,8 +68,12 @@ int my_simulate(network_t** network, const char *blif_fname, const char *bool_st
     }
 
     for (int i = 0; i < outs->num; ++i)
+    {
         //printf("out[%d] = %d\n", i, array_fetch(int, outs, i));
-        printf("out[%d] = %d\n", i, array_fetch(int, outs, i));
+        int o = array_fetch(int, outs, i);
+        printf("out[%d] = %d\n", i, o);
+        outputs_line[i] = o + '0';
+    }
 
 bail:
     array_free(outs);
@@ -103,7 +114,7 @@ int test_from_file(network_t** network, int argc, const char* argv[])
         return -5;
     }
 
-/*
+//
     FILE* blif = fopen(argv[1], "r");
     if (!blif) {
         perror("no file or no permissions :(");
@@ -118,19 +129,37 @@ int test_from_file(network_t** network, int argc, const char* argv[])
         return -3;
     }
 
-    int num_values = network_num_pi(*network);
-    printf("Number of inputs in scheme %d\n", num_values);
+    int num_pi = network_num_pi(*network);
+    printf("Number of inputs in scheme %d\n", num_pi);
 
-*/
+    int num_po = network_num_po(*network);
+    printf("Number of outputs in scheme %d\n", num_po);
+
+    fclose(blif);
+
+    //
 
     char line[1024]; //вот тут может поломаться
                         //из-за размера буффера (если число входов больше 1024)
+
+    char outputs_line[1024]; //выходные значения - и тут может поломаться :)
 
 
     int num_inputs = 0, num_outputs = 0, num_rows = 0;
 
     //int num_values = network_num_pi(*network);
     //printf("Number of inputs in scheme %d\n", num_values);
+
+
+
+    FILE* outputs_file = fopen(argv[3], "w");
+    if (!outputs_file) {
+        perror("no file of outputs or no permissions :(");
+        return -2;
+    }
+
+
+
 
     while((fgets(line, sizeof(line), inputs_file)) != NULL)
     {
@@ -141,6 +170,16 @@ int test_from_file(network_t** network, int argc, const char* argv[])
             if (strstr(line, ".i") == line)
             {
                 sscanf(line, ".i %d", &num_inputs);
+
+                if (num_inputs != num_pi)
+                {
+                    perror("incorrect PLA :(");
+                    return -4;
+                }
+
+                fprintf(outputs_file, "i. %d\n", num_pi);
+                fprintf(outputs_file, "o. %d\n", num_po);
+                
             }
             else if (strstr(line, ".o") == line)
             {
@@ -149,6 +188,8 @@ int test_from_file(network_t** network, int argc, const char* argv[])
             else if (strstr(line, ".p") == line)
             {
                 sscanf(line, ".p %d", &num_rows);
+
+                fprintf(outputs_file, "p. %d\n", num_rows);
             }
         }
 
@@ -166,7 +207,34 @@ int test_from_file(network_t** network, int argc, const char* argv[])
                 return -4;
             }
 
-            my_simulate(network, argv[1], line);
+            my_simulate(network, argv[1], line, outputs_line);
+            //printf("\n%d", strlen(outputs_line));
+            //printf("\n%s", outputs_line);
+
+            //fputs(line, outputs_file);
+            //fprintf(outputs_file, "%c", " ");
+            for(int i = 0; i < num_po; ++i)
+            {
+                 //fprintf(outputs_file, "%c", outputs_line[i]);
+            }
+            //fprintf(outputs_file, "%c", "\n");
+            //fputs("\n", outputs_file);
+
+
+            for(int i = 0; i < num_pi; ++i)
+            {
+                 fprintf(outputs_file, "%c", line[i]);
+            }
+
+            fprintf(outputs_file, "%c", ' ');
+
+            for(int i = 0; i < num_po; ++i)
+            {
+                 fprintf(outputs_file, "%c", outputs_line[i]);
+            }
+
+            fprintf(outputs_file, "%c", '\n');
+
         }
 
         /*
@@ -183,7 +251,7 @@ int test_from_file(network_t** network, int argc, const char* argv[])
 
 
 
-
+    fclose(outputs_file);
 
 
 
