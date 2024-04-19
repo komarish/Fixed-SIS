@@ -39,7 +39,7 @@ int my_simulate(network_t** network, const char *blif_fname,
     }
 
     int num_values = network_num_pi(*network);
-    printf("Number of inputs in scheme %d\n", num_values);
+    //printf("Number of inputs in scheme %d\n", num_values);
     array_t* values = array_alloc(int, num_values);
     if (!values) {
         puts("array alloc failed :(");
@@ -71,7 +71,7 @@ int my_simulate(network_t** network, const char *blif_fname,
     {
         //printf("out[%d] = %d\n", i, array_fetch(int, outs, i));
         int o = array_fetch(int, outs, i);
-        printf("out[%d] = %d\n", i, o);
+        //printf("out[%d] = %d\n", i, o);
         outputs_line[i] = o + '0';
     }
 
@@ -100,13 +100,6 @@ int test_from_file(network_t** network, int argc, const char* argv[])
         return -1;
     }
 
-    puts(argv[1]);
-    puts(argv[2]);
-
-
-
-
-
 
     FILE* inputs_file = fopen(argv[2], "r");
     if (!inputs_file) {
@@ -114,14 +107,12 @@ int test_from_file(network_t** network, int argc, const char* argv[])
         return -5;
     }
 
-//
+    /*Открываем blif-файл, чтобы посмотреть кол-во входов и выходов*/
     FILE* blif = fopen(argv[1], "r");
     if (!blif) {
         perror("no file or no permissions :(");
         return -2;
     }
-
-
 
     int err = read_blif(blif, network);
     if (!err) {
@@ -130,41 +121,37 @@ int test_from_file(network_t** network, int argc, const char* argv[])
     }
 
     int num_pi = network_num_pi(*network);
-    printf("Number of inputs in scheme %d\n", num_pi);
+    //printf("Number of inputs in scheme %d\n", num_pi);
 
     int num_po = network_num_po(*network);
-    printf("Number of outputs in scheme %d\n", num_po);
+    //printf("Number of outputs in scheme %d\n", num_po);
 
     fclose(blif);
 
-    //
 
     char line[1024]; //вот тут может поломаться
                         //из-за размера буффера (если число входов больше 1024)
 
     char outputs_line[1024]; //выходные значения - и тут может поломаться :)
 
-
     int num_inputs = 0, num_outputs = 0, num_rows = 0;
 
-    //int num_values = network_num_pi(*network);
-    //printf("Number of inputs in scheme %d\n", num_values);
-
-
-
+    //Открываем файл для записи выходных значений
     FILE* outputs_file = fopen(argv[3], "w");
     if (!outputs_file) {
         perror("no file of outputs or no permissions :(");
         return -2;
     }
 
-
+    /* Добавляем значения количества входов и выходов, 
+    соответствующие кол-ву входов и выходов схемы*/
+    fprintf(outputs_file, "i. %d\n", num_pi);
+    fprintf(outputs_file, "o. %d\n", num_po);
 
 
     while((fgets(line, sizeof(line), inputs_file)) != NULL 
         || (strstr(line, ".e") != line))
     {
-        printf("%s", line);
 
         if (line[0] == '.')
         {
@@ -177,12 +164,9 @@ int test_from_file(network_t** network, int argc, const char* argv[])
                     perror("incorrect PLA :(");
                     return -4;
                 }
-
-                fprintf(outputs_file, "i. %d\n", num_pi);
-                fprintf(outputs_file, "o. %d\n", num_po);
                 
             }
-            else if (strstr(line, ".o") == line)
+            else if (strstr(line, ".o") == line) //этот блок пока не нужен
             {
                 sscanf(line, ".o %d", &num_outputs);
             }
@@ -190,6 +174,7 @@ int test_from_file(network_t** network, int argc, const char* argv[])
             {
                 sscanf(line, ".p %d", &num_rows);
 
+                //записываем кол-во строк в итоговый файл
                 fprintf(outputs_file, "p. %d\n", num_rows);
             }
         }
@@ -197,7 +182,6 @@ int test_from_file(network_t** network, int argc, const char* argv[])
 
         if (line[0] == '0' || line[0] == '1')
         {
-            //printf("%d", strlen(line));
             
             //допустима запись outputs через пробел,
             //хотя зачем мне в такой постновке задачи вообще выходы и пробелы?
@@ -208,19 +192,11 @@ int test_from_file(network_t** network, int argc, const char* argv[])
                 return -4;
             }
 
+            /*Моделирование схемы, выходные значения записываются в outputs_line*/
             my_simulate(network, argv[1], line, outputs_line);
-            //printf("\n%d", strlen(outputs_line));
-            //printf("\n%s", outputs_line);
 
-            //fputs(line, outputs_file);
-            //fprintf(outputs_file, "%c", " ");
-            for(int i = 0; i < num_po; ++i)
-            {
-                 //fprintf(outputs_file, "%c", outputs_line[i]);
-            }
-            //fprintf(outputs_file, "%c", "\n");
-            //fputs("\n", outputs_file);
 
+            /*Записываем входные и полученные выходные значения в файл*/
 
             for(int i = 0; i < num_pi; ++i)
             {
@@ -237,16 +213,6 @@ int test_from_file(network_t** network, int argc, const char* argv[])
             fprintf(outputs_file, "%c", '\n');
 
         }
-
-        /*
-        for (int i = 0; i < num_values; ++i) {
-        
-            //printf("%c", line[i]);
-            printf("\ni = %d", i);
-
-            array_insert_last(int, values, line[i] - '0');
-        
-        }*/
         
     }
 
